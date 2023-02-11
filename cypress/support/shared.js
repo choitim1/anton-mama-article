@@ -22,12 +22,32 @@ function setJwtToken(window, token) {
 }
 
 function openMyArticles(){
-    cy.get(' ul:nth-child(3) > li:nth-child(4) > a').click()
-    cy.get (' div.user-info > div > div > div > h4').should('have.text','Tim491')
-    cy.get (' article-preview:nth-child(2) > div > a').click()
-    cy.get (' div.banner > div > h1').should('have.text','Libero vitae cumque distinctio provident sint illo ipsum sapiente.')
+    // cy.get(' ul:nth-child(3) > li:nth-child(4) > a').click()
+    // cy.get (' div.user-info > div > div > div > h4').should('have.text','Tim491')
+    // cy.url().should('include','https://demo.realworld.io/#/@Tim491')
+    // cy.wait(2000)
+    // cy.get ('  div.container.page > div > div.col-md-9 > div > ul > li:nth-child(2) > a').click()
+    // cy.get (' div.banner > div > h1').should('have.text','Libero vitae cumque distinctio provident sint illo ipsum sapiente.')
+    cy.get('.navbar').as('appHeader')
+    
+    // open my profile
+    cy.get('@appHeader').should('contain','T', meUser.username).click();
+    
+
+    // my articles should be active
+    cy.get('.articles-toggle > ul > li:first-child a')
+        .should('have.class', 'active');
+
 
     
 }
+ function clearArticle () {
+    cy.get('div.banner > div > article-actions > article-meta > div > ng-transclude > span:nth-child(1) > a').click()
+    cy.get(' form > fieldset > fieldset:nth-child(3) > textarea').clear()
+    cy.get('')
+    // cy.get('')
 
-export {login, setJwtToken, openMyArticles}
+ }
+
+
+export {login, setJwtToken, openMyArticles, clearArticle}
